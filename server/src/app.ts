@@ -5,6 +5,8 @@ import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize'; // @ts-ignore
 import xss from 'xss-clean';
 import hpp from 'hpp';
+import userRouter from './routes/users';
+import messageRouter from './routes/messages';
 import AppError from './utils/AppError';
 
 const app = express();
@@ -29,10 +31,13 @@ app.use(xss());
 
 app.use(hpp());
 
+// Routes
+app.use('/api/v1/messages', messageRouter);
+app.use('/api/v1/users', userRouter);
 
+// 404s
 app.all('*', (req, res, next) => {
 	next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
 });
-
 
 export default app;
