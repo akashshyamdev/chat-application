@@ -49,3 +49,23 @@ export async function login(req: Request, res: Response) {
 		return res.status(500).json(error);
 	}
 }
+
+export async function getAllUsers(req: Request, res: Response) {
+	try {
+		const users = await User.find();
+
+		return res.status(200).json(users);
+	} catch (error) {
+		return res.status(500).json(error);
+	}
+}
+
+export async function deleteUser(req: Request, res: Response) {
+	try {
+		const user = await User.findByIdAndDelete(req.params.id);
+
+		return res.status(204).json(user);
+	} catch (error) {
+		return res.status(500).json(error);
+	}
+}
