@@ -1,8 +1,8 @@
 import { Document } from 'mongoose';
-import { User } from './users';
+import { IUser } from './users';
 
 export interface Message extends Document {
-	user: User;
+	user: IUser;
 	createdAt?: Date;
 	content: string;
 }

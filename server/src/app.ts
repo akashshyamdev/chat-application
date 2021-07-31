@@ -1,15 +1,19 @@
+import cors from 'cors';
 import express from 'express';
-import morgan from 'morgan';
+// @ts-ignore
+import mongoSanitize from 'express-mongo-sanitize';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
-import mongoSanitize from 'express-mongo-sanitize'; // @ts-ignore
-import xss from 'xss-clean';
 import hpp from 'hpp';
-import userRouter from './routes/users';
+import morgan from 'morgan';
+// @ts-ignore
+import xss from 'xss-clean';
 import messageRouter from './routes/messages';
-import AppError from './utils/AppError';
+import userRouter from './routes/users';
 
 const app = express();
+
+app.use(cors());
 
 app.use(helmet());
 
@@ -34,10 +38,5 @@ app.use(hpp());
 // Routes
 app.use('/api/v1/messages', messageRouter);
 app.use('/api/v1/users', userRouter);
-
-// 404s
-app.all('*', (req, res, next) => {
-	next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
-});
 
 export default app;
