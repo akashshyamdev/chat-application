@@ -6,16 +6,7 @@ import User from '../models/Users';
 function createSendToken(user: IUser, res: Response) {
 	const token = sign({ id: user.id }, process.env.JWT_SECRET!, {});
 
-	const cookieOptions = {
-		expires: new Date(Date.now() + parseInt(process.env.JWT_COOKIE_EXPIRES_IN!) * 24 * 60 * 60 * 1000),
-		httpOnly: true,
-		secure: false,
-	};
-
-	if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
-	if (process.env.NODE_ENV === 'production') cookieOptions.httpOnly = false;
-
-	res.cookie('jwt', token, cookieOptions);
+	// TODO: Implement cookies
 
 	res.status(200).json({
 		token,
