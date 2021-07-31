@@ -1,7 +1,7 @@
-import { IUser } from '../types/users';
-import { sign } from 'jsonwebtoken';
 import { Request, Response } from 'express';
+import { sign } from 'jsonwebtoken';
 import User from '../models/Users';
+import { IUser } from '../types/users';
 
 function createSendToken(user: IUser, res: Response) {
 	const token = sign({ id: user.id }, process.env.JWT_SECRET!, {});
@@ -18,6 +18,7 @@ function createSendToken(user: IUser, res: Response) {
 export async function signup(req: Request, res: Response) {
 	try {
 		const user = await User.create(req.body);
+		console.log('signup');
 
 		return createSendToken(user, res);
 	} catch (error) {

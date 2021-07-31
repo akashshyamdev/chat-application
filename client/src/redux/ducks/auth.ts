@@ -18,15 +18,17 @@ export const signup = (formData: any) => async (dispatch: Dispatch) => {
 		});
 
 		console.log('action');
-		const httpService = new Http('api/developers/signup');
-		const { data, token } = await httpService.create(formData);
+		const httpService = new Http('api/v1/users/signup');
+		const user = await httpService.create(formData);
+
+		console.log(user);
 
 		dispatch({
 			type: AUTH_SIGNUP_SUCCESS,
-			payload: { ...data, token },
+			payload: { ...user, token: user.token },
 		});
 
-		localStorage.setItem('auth', JSON.stringify(data));
+		localStorage.setItem('auth', JSON.stringify(user));
 	} catch (err) {
 		const error = err as AxiosError;
 
@@ -62,39 +64,16 @@ export const login = (formData: any) => async (dispatch: Dispatch) => {
 	}
 };
 
-export const googleAuth = (tokenId: string) => async (dispatch: Dispatch) => {
-	try {
-		dispatch({
-			type: AUTH_LOGIN_REQUEST,
-		});
-
-		const httpService = new Http('api/developers/google-auth');
-		const { data, token } = await httpService.create({ tokenId });
-
-		dispatch({
-			type: AUTH_LOGIN_SUCCESS,
-			payload: { ...data, token },
-		});
-
-		localStorage.setItem('auth', JSON.stringify(data));
-	} catch (err) {
-		const error = err as AxiosError;
-
-		dispatch({
-			type: AUTH_LOGIN_FAIL,
-			payload: error?.response?.data?.message || error?.message,
-		});
-	}
-};
-
 export default function reducer(state = {}, action: Action) {
 	switch (action.type) {
 		case AUTH_SIGNUP_REQUEST:
 		case AUTH_LOGIN_REQUEST:
 			return { ...state, loading: true };
+
 		case AUTH_SIGNUP_SUCCESS:
 		case AUTH_LOGIN_SUCCESS:
 			return { ...state, ...action.payload, loading: false, isAuthenticated: true };
+
 		case AUTH_SIGNUP_FAIL:
 		case AUTH_LOGIN_FAIL:
 			return { ...state, ...action.payload, loading: false };
