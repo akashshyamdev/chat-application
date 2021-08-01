@@ -1,8 +1,8 @@
-import Login from 'containers/Auth/Login/Login';
+import Login from 'containers/Login/Login';
 import React from 'react';
 import { Route, Router } from 'react-router-dom';
 import history from './config/history';
-import Signup from './containers/Auth/Signup/Signup';
+import Signup from './containers/Signup/Signup';
 
 function App() {
 	return (
