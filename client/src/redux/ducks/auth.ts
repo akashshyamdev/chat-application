@@ -45,15 +45,15 @@ export const login = (formData: any) => async (dispatch: Dispatch) => {
 			type: AUTH_LOGIN_REQUEST,
 		});
 
-		const httpService = new Http('api/developers/login');
-		const { data, token } = await httpService.create(formData);
+		const httpService = new Http('api/v1/users/login');
+		const user = await httpService.create(formData);
 
 		dispatch({
 			type: AUTH_LOGIN_SUCCESS,
-			payload: { ...data, token },
+			payload: { ...user, token: user.token },
 		});
 
-		localStorage.setItem('auth', JSON.stringify(data));
+		localStorage.setItem('auth', JSON.stringify(user));
 	} catch (err) {
 		const error = err as AxiosError;
 
