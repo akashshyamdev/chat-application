@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import { Model, model, Schema } from 'mongoose';
 import { Message } from '../types/message';
 
@@ -8,6 +9,7 @@ const schema = new Schema<Message>(
 			required: true,
 		},
 		user: {
+			type: ObjectId,
 			ref: 'User',
 		},
 		createdAt: {
