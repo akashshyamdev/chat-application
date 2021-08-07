@@ -8,6 +8,7 @@ import hpp from 'hpp';
 import morgan from 'morgan';
 // @ts-ignore
 import xss from 'xss-clean';
+import groupRouter from './routes/group';
 import messageRouter from './routes/messages';
 import userRouter from './routes/users';
 
@@ -36,7 +37,8 @@ app.use(xss());
 app.use(hpp());
 
 // Routes
-app.use('/api/v1/messages', messageRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/groups', groupRouter);
+app.use('/api/v1/messages', messageRouter);
 
 export default app;
