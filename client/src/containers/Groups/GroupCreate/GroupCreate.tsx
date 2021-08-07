@@ -18,11 +18,11 @@ export default function GroupCreate() {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
-	const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		const http = new Http('api/v1/groups');
-		http.create(formData);
+		await http.create(formData);
 
 		setTimeout(() => {
 			history.push('/groups');
