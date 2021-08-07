@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createGroup, getAllGroups, getGroup, updateGroup } from '../controllers/groups';
+import { createGroup, deleteGroup, getAllGroups, getGroup, updateGroup } from '../controllers/groups';
 
 const router = Router();
 
@@ -9,5 +9,7 @@ router.get('/:id', getGroup);
 router.post('/', createGroup);
 
 router.put('/:id', updateGroup);
+
+router.delete('/:id', deleteGroup);
 
 export default router;

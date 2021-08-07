@@ -40,3 +40,13 @@ export async function updateGroup(req: Request, res: Response) {
 		return res.status(500).json(error);
 	}
 }
+
+export async function deleteGroup(req: Request, res: Response) {
+	try {
+		const group = await Group.findByIdAndDelete(req.params.id);
+
+		return res.status(204).json(group);
+	} catch (error) {
+		return res.status(500).json(error);
+	}
+}
