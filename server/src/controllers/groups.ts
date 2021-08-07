@@ -30,3 +30,13 @@ export async function createGroup(req: Request, res: Response) {
 		return res.status(500).json(error);
 	}
 }
+
+export async function updateGroup(req: Request, res: Response) {
+	try {
+		const group = await Group.findByIdAndUpdate(req.params.id, req.body, { new: true });
+
+		return res.status(200).json(group);
+	} catch (error) {
+		return res.status(500).json(error);
+	}
+}
