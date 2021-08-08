@@ -25,16 +25,24 @@ export default function Modal({ isVisible, hideModal, heading, subHeading, onAll
 						className='flex justify-center left-0 overflow-x-hidden overflow-y-auto fixed top-1/4 w-full z-50'
 						style={{ outlineWidth: '0' }}
 					>
-						<div className='items-center bg-white rounded flex flex-col m-7 max-w-lg relative z-30'>
-							<div className='items-center flex flex-col px-7 py-4'>
-								<h3 className='mb-1'>{heading}</h3>
-								<h5 className='text-gray-400 text-center'>{subHeading}</h5>
+						<div className='items-center bg-white rounded flex flex-col m-7 max-w-lg relative z-30 pt-7'>
+							<div className='items-center flex flex-col px-10 py-4 mb-3'>
+								<h3 className='text-4xl font-sans mb-2'>{heading}</h3>
+								<h5 className='text-gray-400 text-center text-2xl'>{subHeading}</h5>
 							</div>
 
-							<button onClick={onAllow}></button>
-							<button className='text-purple-700 border-t mb-4 border-solid border-gray-100 mt-2' onClick={hideModal}>
-								Close
-							</button>
+							<div className='mt-2 w-full'>
+								<button className='text-red-600 py-3 w-full border-t border-solid hover:bg-gray-50 border-gray-100' onClick={onAllow}>
+									Yes
+								</button>
+
+								<button
+									className='text-purple-700 py-3 w-full border-t border-solid hover:bg-gray-50 border-gray-100'
+									onClick={hideModal}
+								>
+									Close
+								</button>
+							</div>
 						</div>
 					</div>
 				</>,
