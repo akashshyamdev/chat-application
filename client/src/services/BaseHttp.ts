@@ -53,12 +53,12 @@ export default class BaseHttp {
 
 	async delete(url: string, queryParams?: QueryParams) {
 		try {
-			let response = await fetch(ROOT_URL + this.getUrl(url) + `?${this.mapQueryParams(queryParams)}`, {
+			await fetch(ROOT_URL + this.getUrl(url) + `?${this.mapQueryParams(queryParams)}`, {
 				method: 'DELETE',
 				headers: this.headers,
 			});
 
-			return response.json();
+			return undefined;
 		} catch (error) {
 			console.log(error);
 			return null;

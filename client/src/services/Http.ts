@@ -24,6 +24,7 @@ export default class Http {
 	}
 
 	delete(id: string, queryParams?: QueryParams) {
-		return this.baseHttp.delete(`/${id}`, queryParams);
+		console.log('delete');
+		return this.baseHttp.delete(`/${this.urlPrefix}/${id}`, queryParams);
 	}
 }
