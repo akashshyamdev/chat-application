@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-export default function useModal() {
+export default function useModal<T>(meta: T) {
+	const [metadata, setMetadata] = useState<T>(meta);
 	const [isVisible, setIsVisible] = useState(false);
 
 	const toggleModal = () => {
@@ -8,7 +9,9 @@ export default function useModal() {
 	};
 
 	return {
+		metadata,
 		isVisible,
 		toggleModal,
+		setMetadata,
 	};
 }

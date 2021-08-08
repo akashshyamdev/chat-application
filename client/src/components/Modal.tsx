@@ -1,15 +1,21 @@
-import React, { MouseEvent } from 'react';
+import React from 'react';
 import { createPortal } from 'react-dom';
 
 interface ModalProps {
 	heading: string;
 	subHeading: string;
 	isVisible: boolean;
-	hideModal: (e: MouseEvent<HTMLOrSVGElement>) => void;
-	onAllow: (e: MouseEvent<HTMLButtonElement>) => void;
+	metadata: any;
+	hideModal: () => void;
+	onAllow: (metadata: ModalProps['metadata']) => void;
 }
 
-export default function Modal({ isVisible, hideModal, heading, subHeading, onAllow }: ModalProps) {
+export default function Modal({ isVisible, hideModal, heading, metadata, subHeading, onAllow }: ModalProps) {
+	const allowed = () => {
+		hideModal();
+		onAllow(metadata);
+	};
+
 	return isVisible
 		? createPortal(
 				<>
@@ -32,7 +38,7 @@ export default function Modal({ isVisible, hideModal, heading, subHeading, onAll
 							</div>
 
 							<div className='mt-2 w-full'>
-								<button className='text-red-600 py-3 w-full border-t border-solid hover:bg-gray-50 border-gray-100' onClick={onAllow}>
+								<button className='text-red-600 py-3 w-full border-t border-solid hover:bg-gray-50 border-gray-100' onClick={allowed}>
 									Yes
 								</button>
 
