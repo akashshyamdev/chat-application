@@ -17,7 +17,14 @@ const schema = new Schema<Message>(
 			default: Date.now(),
 		},
 	},
-	{ toJSON: { virtuals: true }, toObject: { virtuals: true } }
+	{
+		toJSON: { virtuals: true },
+		toObject: { virtuals: true },
+		timestamps: {
+			createdAt: true,
+			updatedAt: false,
+		},
+	}
 );
 
 const Message = model<Message, Model<Message>>('Message', schema);

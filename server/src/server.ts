@@ -1,8 +1,11 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 import colors from 'colors';
-import app from './app';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import { Server } from 'node:http';
 import path from 'path';
+import app from './app';
+
+const io = new Server(app, { cors: { origin: '*' } });
 
 process.on('uncaughtException', (err) => {
 	console.error(err.name, err.message);
@@ -11,8 +14,10 @@ process.on('uncaughtException', (err) => {
 	process.exit(1);
 });
 
+// ENV Variables
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
+// DB
 mongoose
 	.connect(process.env.DB_URL!, {
 		useNewUrlParser: true,
