@@ -5,6 +5,7 @@ import mongoSanitize from 'express-mongo-sanitize';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import hpp from 'hpp';
+import { createServer } from 'http';
 import morgan from 'morgan';
 // @ts-ignore
 import xss from 'xss-clean';
@@ -13,6 +14,8 @@ import messageRouter from './routes/messages';
 import userRouter from './routes/users';
 
 const app = express();
+
+const http = createServer(app);
 
 app.use(cors());
 
@@ -41,4 +44,4 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/groups', groupRouter);
 app.use('/api/v1/messages', messageRouter);
 
-export default app;
+export default http;

@@ -6,3 +6,7 @@ export interface Message extends Document {
 	createdAt?: Date;
 	content: string;
 }
+
+export interface CreateMessageArg {
+	userId: string;
+}

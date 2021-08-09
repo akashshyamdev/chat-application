@@ -1,9 +1,10 @@
 import colors from 'colors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { Server } from 'node:http';
 import path from 'path';
+import { Server } from 'socket.io';
 import app from './app';
+import { getRecentMessages } from './controllers/messages';
 
 const io = new Server(app, { cors: { origin: '*' } });
 
@@ -32,6 +33,17 @@ mongoose
 		console.error(err.message.red.underline.bold);
 		process.exit(1);
 	});
+
+// Socket
+io.on('connection', async (socket) => {
+	// Get all messages
+	const messages = await getRecentMessages();
+
+	// Send all messages
+	socket.emit('recent_messages', messages);
+
+	socket.on('create_message', () => {});
+});
 
 // Listening code
 const port = process.env.PORT || 5000;

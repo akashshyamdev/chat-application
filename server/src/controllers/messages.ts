@@ -1,17 +1,21 @@
-import { Request, Response } from 'express';
 import Message from '../models/Message';
 
-export async function createMessage(req: Request, res: Response) {
+export async function getRecentMessages() {
 	try {
-		const { text, userId } = req.body;
-
-		const message = await Message.create({ text, userId });
-
-		return res.status(201).json(message);
+		return Message.find().limit(10);
 	} catch (err) {
-		res.status(500).json({
-			status: 'fail',
-			err,
-		});
+		return err;
+	}
+}
+
+export async function createMessage(msg) {
+	try {
+		const { text, userId } = msg;
+
+		const message = await Message.create({ text, user: userId });
+
+		return message;
+	} catch (err) {
+		return err;
 	}
 }
